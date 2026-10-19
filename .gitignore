@@ -33,6 +33,7 @@ build/
 *.tmp
 *.bak
 *.swp
+scratch/
 
 # Environment files (never commit these)
 .env

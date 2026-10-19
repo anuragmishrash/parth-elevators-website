@@ -22,7 +22,7 @@
    ADDITIONAL RESPONSIVE RULES — Apply globally
    =========================================================== */
 
-/* 1. Container padding: This single rule handles padding across all sizes */
+/* 1. Container padding: Handles fluid breathing room across all sizes */
 .container { 
   width: 100%;
   max-width: 1280px;
@@ -50,7 +50,7 @@ html, body {
   box-sizing: border-box; 
 }
 
-/* 5. Touch targets — all clickable elements minimum 44x44px (use padding to achieve this) */
+/* 5. Touch targets — all clickable elements minimum 44x44px */
 a, button { 
   min-height: 44px; 
 }
@@ -154,6 +154,14 @@ a, button {
   }
 }
 
+/* 13. Disable FAB tooltips on touch devices / mobile screens to prevent sticky hover bug */
+@media (max-width: 768px), (hover: none), (pointer: coarse) {
+  .fab::before {
+    display: none !important;
+  }
+}
+
+
 /* ===========================================================
    --- 360px–480px (small phones) ---
    Base mobile styles (mobile-first starting at 360px)
@@ -188,8 +196,14 @@ html {
 }
 
 /* Hero */
+#home {
+  padding: 100px 16px 60px;
+  min-height: 100svh;
+}
+
 .hero-title { 
-  font-size: clamp(34px, 9vw, 42px); 
+  font-size: clamp(32px, 8.5vw, 42px); 
+  line-height: 1.15;
 }
 
 .hero-subtitle { 
@@ -199,20 +213,21 @@ html {
 
 .hero-content,
 .hero-content-panel { 
-  padding: 28px 24px; 
+  padding: 28px 20px; 
   max-width: 100%;
 }
 
 .hero-ctas { 
   flex-direction: column; 
-  gap: 12px; 
+  gap: 10px; 
   width: 100%;
 }
 
 .hero-ctas .btn { 
   width: 100%; 
   text-align: center; 
-  padding: 14px 24px; 
+  padding: 14px 20px; 
+  font-size: 15px;
 }
 
 .hero-badge { 
@@ -303,37 +318,122 @@ html {
   height: 300px; 
 }
 
-/* About */
+/* About Section on Mobile */
 .about-grid { 
-  grid-template-columns: 1fr; 
-  gap: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.about-content {
+  order: 1;
 }
 
 .about-left {
-  max-width: 100%;
+  order: 2;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
   align-items: center;
 }
 
 .about-image-frame { 
-  max-width: 100%; 
-  aspect-ratio: 1/1;
+  width: 100%;
+  max-width: 340px; 
+  margin: 0 auto;
+  aspect-ratio: 4/5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  border: 2px solid rgba(232, 213, 176, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.about-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.about-caption {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.founder-name {
+  font-size: 19px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.founder-title {
+  font-size: 13px;
+  color: var(--color-champagne);
+  letter-spacing: 1px;
 }
 
 .about-image-row {
-  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  max-width: 340px;
+  margin: 16px auto 0;
+}
+
+.about-image-row img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
 }
 
 .about-subcaption {
-  max-width: 100%;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  font-style: italic;
+  max-width: 340px;
+  margin: 8px auto 0;
 }
 
 .about-stats { 
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.about-stat {
+  padding: 14px 6px;
+  background: rgba(26, 29, 46, 0.6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-align: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .about-stat span:first-child { 
-  font-size: 22px; 
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-primary);
+  display: block;
+  font-family: var(--font-heading);
+  line-height: 1.2;
+}
+
+.about-stat span:last-child {
+  font-size: 10.5px;
+  color: var(--color-text-secondary);
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
 }
 
 /* Contact */
@@ -359,9 +459,10 @@ html {
 
 .fab-container,
 .floating-actions { 
-  bottom: 16px; 
-  right: 16px; 
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px)); 
+  right: calc(18px + env(safe-area-inset-right, 0px)); 
   gap: 10px;
+  z-index: 995;
 }
 
 /* Footer */
@@ -419,19 +520,19 @@ html {
 
   /* About */
   .about-image-frame { 
-    max-width: 380px; 
+    max-width: 360px; 
     margin: 0 auto; 
     aspect-ratio: 4/5;
   }
 
   .about-image-row {
-    max-width: 380px;
+    max-width: 360px;
     margin: 16px auto 0;
   }
 
   .about-subcaption {
-    max-width: 380px;
-    margin: 0 auto;
+    max-width: 360px;
+    margin: 8px auto 0;
   }
 
   .hero-orb-1 {
@@ -460,6 +561,10 @@ html {
   }
 
   /* Hero */
+  #home {
+    padding: 120px 24px 80px;
+  }
+
   .hero-title { 
     font-size: clamp(42px, 6vw, 58px); 
   }
@@ -531,12 +636,20 @@ html {
 
   /* About */
   .about-grid { 
+    display: grid;
     grid-template-columns: 1fr 1fr; 
     gap: 48px;
     align-items: start;
   }
 
+  .about-content {
+    order: 0;
+  }
+
   .about-left {
+    order: 0;
+    max-width: 420px;
+    margin: 0;
     align-items: flex-start;
   }
 
@@ -553,8 +666,20 @@ html {
 
   .about-subcaption {
     max-width: 420px;
-    margin: 0;
+    margin: 8px 0 0;
     text-align: left;
+  }
+
+  .about-stats {
+    gap: 16px;
+  }
+
+  .about-stat span:first-child {
+    font-size: 24px;
+  }
+
+  .about-stat span:last-child {
+    font-size: 12px;
   }
 
   /* Contact */
