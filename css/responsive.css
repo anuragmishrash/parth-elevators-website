@@ -1,0 +1,758 @@
+/* ===========================================================
+   PARTH ELEVATORS — COMPREHENSIVE RESPONSIVE STYLESHEET
+   Full Device Coverage:
+   --bp-xs:  360px   (small Android phones)
+   --bp-sm:  480px   (large phones)
+   --bp-md:  768px   (tablets portrait)
+   --bp-lg:  1024px  (tablets landscape / small laptops)
+   --bp-xl:  1280px  (desktop)
+   --bp-2xl: 1440px  (large desktop)
+   =========================================================== */
+
+:root {
+  --bp-xs: 360px;
+  --bp-sm: 480px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --bp-2xl: 1440px;
+}
+
+/* ===========================================================
+   ADDITIONAL RESPONSIVE RULES — Apply globally
+   =========================================================== */
+
+/* 1. Container padding: This single rule handles padding across all sizes */
+.container { 
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 5vw, 80px);
+}
+
+/* 2. All images (except those with explicit height via parent container) */
+img { 
+  max-width: 100%; 
+  height: auto; 
+}
+
+/* 3. Section padding */
+section {
+  padding: clamp(60px, 8vw, 120px) 0;
+}
+
+/* 4. Prevent horizontal overflow globally */
+html, body { 
+  overflow-x: hidden; 
+}
+
+* { 
+  box-sizing: border-box; 
+}
+
+/* 5. Touch targets — all clickable elements minimum 44x44px (use padding to achieve this) */
+a, button { 
+  min-height: 44px; 
+}
+
+/* 6. Mobile nav overlay: When hamburger is open */
+.nav-menu,
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 12, 18, 0.97);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  transform: translateY(-8px);
+}
+
+.nav-menu.open,
+.mobile-nav.open {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-menu a,
+.mobile-nav a { 
+  font-size: 28px; 
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+}
+
+.nav-menu a:hover,
+.mobile-nav a:hover { 
+  color: var(--color-primary); 
+}
+
+/* 7. Gallery strip on mobile */
+.gallery-image,
+.gallery-item { 
+  width: clamp(200px, 60vw, 280px);
+  height: clamp(260px, 80vw, 380px);
+}
+
+/* 8. Custom cursor — disable completely on touch/mobile */
+@media (pointer: coarse) {
+  #cursor-dot, #cursor-ring { 
+    display: none !important; 
+  }
+  body { 
+    cursor: auto !important; 
+  }
+}
+
+/* 9. Hero background-attachment fix for iOS Safari */
+@media (max-width: 768px) {
+  #home,
+  .hero-bg {
+    background-attachment: scroll !important;
+  }
+}
+
+/* 10. Form inputs on mobile — prevent iOS zoom */
+@media (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* 11. Testimonial card on mobile */
+@media (max-width: 768px) {
+  .testimonial-card { 
+    padding: 24px 20px; 
+  }
+  .quote-mark { 
+    font-size: 60px; 
+  }
+}
+
+/* 12. Map card on mobile */
+@media (max-width: 768px) {
+  .map-card { 
+    flex-direction: column; 
+    text-align: center; 
+  }
+  .map-card-content { 
+    align-items: center; 
+  }
+}
+
+/* ===========================================================
+   --- 360px–480px (small phones) ---
+   Base mobile styles (mobile-first starting at 360px)
+   =========================================================== */
+
+html { 
+  font-size: 14px; 
+}
+
+/* Navbar */
+.nav-links,
+.nav-cta {
+  display: none;
+}
+
+.hamburger {
+  display: flex;
+}
+
+#navbar .logo-name { 
+  font-size: 13px; 
+}
+
+#navbar .logo-tagline { 
+  display: none; 
+}
+
+.logo-icon { 
+  width: 32px; 
+  height: 32px; 
+  font-size: 12px; 
+}
+
+/* Hero */
+.hero-title { 
+  font-size: clamp(34px, 9vw, 42px); 
+}
+
+.hero-subtitle { 
+  font-size: 14px; 
+  line-height: 1.6;
+}
+
+.hero-content,
+.hero-content-panel { 
+  padding: 28px 24px; 
+  max-width: 100%;
+}
+
+.hero-ctas { 
+  flex-direction: column; 
+  gap: 12px; 
+  width: 100%;
+}
+
+.hero-ctas .btn { 
+  width: 100%; 
+  text-align: center; 
+  padding: 14px 24px; 
+}
+
+.hero-badge { 
+  font-size: 9px; 
+  letter-spacing: 2px; 
+}
+
+.hero-orb-1 {
+  width: 280px;
+  height: 280px;
+  right: -50px;
+  top: -50px;
+}
+
+.hero-orb-2 {
+  width: 220px;
+  height: 220px;
+  left: -40px;
+  bottom: 40px;
+}
+
+/* Stats bar */
+.stats-bar { 
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  border-radius: var(--radius-md);
+  padding: 20px 16px;
+}
+
+.stat-divider { 
+  display: none; 
+}
+
+.stat-item { 
+  padding: 12px 8px; 
+}
+
+.stat-number { 
+  font-size: 28px; 
+}
+
+.stat-label { 
+  font-size: 11px; 
+}
+
+/* Services */
+.services-grid { 
+  grid-template-columns: 1fr; 
+  gap: 16px;
+}
+
+.service-image { 
+  height: 180px; 
+}
+
+/* Why Us */
+.why-us-grid { 
+  grid-template-columns: 1fr; 
+  gap: 32px;
+}
+
+.feature-row { 
+  gap: 14px; 
+}
+
+.feature-icon-wrap { 
+  width: 44px; 
+  height: 44px; 
+  flex-shrink: 0;
+}
+
+/* Projects Bento */
+.bento-grid {
+  grid-template-columns: 1fr;
+  grid-auto-rows: 220px;
+}
+
+.project-card.large,
+.project-card.bento-large { 
+  grid-column: span 1; 
+  grid-row: span 1; 
+}
+
+/* Gallery */
+.gallery-image,
+.gallery-item { 
+  width: 220px; 
+  height: 300px; 
+}
+
+/* About */
+.about-grid { 
+  grid-template-columns: 1fr; 
+  gap: 40px;
+}
+
+.about-left {
+  max-width: 100%;
+  align-items: center;
+}
+
+.about-image-frame { 
+  max-width: 100%; 
+  aspect-ratio: 1/1;
+}
+
+.about-image-row {
+  max-width: 100%;
+}
+
+.about-subcaption {
+  max-width: 100%;
+}
+
+.about-stats { 
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.about-stat span:first-child { 
+  font-size: 22px; 
+}
+
+/* Contact */
+.contact-grid { 
+  grid-template-columns: 1fr; 
+  gap: 40px;
+}
+
+.contact-form { 
+  padding: 24px 20px; 
+}
+
+/* FABs */
+.fab { 
+  width: 48px; 
+  height: 48px; 
+}
+
+.fab-whatsapp { 
+  width: 52px; 
+  height: 52px; 
+}
+
+.fab-container,
+.floating-actions { 
+  bottom: 16px; 
+  right: 16px; 
+  gap: 10px;
+}
+
+/* Footer */
+.footer-grid { 
+  grid-template-columns: 1fr; 
+  gap: 32px;
+  text-align: center;
+}
+
+.footer-links { 
+  align-items: center; 
+}
+
+.footer-bottom {
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+}
+
+
+/* ===========================================================
+   --- 480px–768px (large phones) ---
+   =========================================================== */
+
+@media (min-width: 480px) {
+  html {
+    font-size: 15px;
+  }
+
+  .hero-ctas {
+    flex-direction: row;
+    width: auto;
+  }
+
+  .hero-ctas .btn {
+    width: auto;
+  }
+
+  /* Services */
+  .services-grid { 
+    grid-template-columns: 1fr 1fr; 
+  }
+
+  /* Projects */
+  .bento-grid { 
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 200px;
+  }
+
+  .project-card.large,
+  .project-card.bento-large { 
+    grid-column: span 2; 
+    grid-row: span 1;
+  }
+
+  /* About */
+  .about-image-frame { 
+    max-width: 380px; 
+    margin: 0 auto; 
+    aspect-ratio: 4/5;
+  }
+
+  .about-image-row {
+    max-width: 380px;
+    margin: 16px auto 0;
+  }
+
+  .about-subcaption {
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  .hero-orb-1 {
+    width: 380px;
+    height: 380px;
+  }
+
+  .hero-orb-2 {
+    width: 280px;
+    height: 280px;
+  }
+}
+
+
+/* ===========================================================
+   --- 768px–1024px (tablets) ---
+   =========================================================== */
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+
+  .container {
+    padding: 0 32px;
+  }
+
+  /* Hero */
+  .hero-title { 
+    font-size: clamp(42px, 6vw, 58px); 
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+  }
+
+  .hero-content,
+  .hero-content-panel { 
+    padding: 40px 48px; 
+    max-width: 580px; 
+  }
+
+  .hero-orb-1 {
+    width: 480px;
+    height: 480px;
+  }
+
+  .hero-orb-2 {
+    width: 340px;
+    height: 340px;
+  }
+
+  /* Stats */
+  .stats-bar { 
+    grid-template-columns: repeat(4, 1fr);
+    padding: 24px 32px;
+  }
+
+  .stat-divider { 
+    display: block; 
+  }
+
+  .stat-number {
+    font-size: clamp(34px, 3.5vw, 44px);
+  }
+
+  .stat-label {
+    font-size: var(--font-small);
+  }
+
+  /* Services */
+  .services-grid { 
+    grid-template-columns: repeat(3, 1fr); 
+  }
+
+  .service-image {
+    height: 200px;
+  }
+
+  /* Projects */
+  .bento-grid { 
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 240px;
+  }
+
+  .project-card.large,
+  .project-card.bento-large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  /* Why Us */
+  .why-us-grid { 
+    grid-template-columns: 1fr 1fr; 
+    gap: 48px; 
+  }
+
+  /* About */
+  .about-grid { 
+    grid-template-columns: 1fr 1fr; 
+    gap: 48px;
+    align-items: start;
+  }
+
+  .about-left {
+    align-items: flex-start;
+  }
+
+  .about-image-frame {
+    max-width: 420px;
+    aspect-ratio: 4/5;
+    margin: 0;
+  }
+
+  .about-image-row {
+    max-width: 420px;
+    margin: 16px 0 0;
+  }
+
+  .about-subcaption {
+    max-width: 420px;
+    margin: 0;
+    text-align: left;
+  }
+
+  /* Contact */
+  .contact-grid { 
+    grid-template-columns: 1fr 1fr; 
+    gap: 48px; 
+  }
+
+  .contact-form {
+    padding: 36px;
+  }
+
+  /* Map card on tablet+ returns to row layout */
+  .map-card {
+    flex-direction: row;
+    text-align: left;
+    gap: 20px;
+  }
+
+  .map-card-content {
+    align-items: flex-start;
+  }
+
+  /* FABs */
+  .fab {
+    width: 52px;
+    height: 52px;
+  }
+
+  .fab-whatsapp {
+    width: 56px;
+    height: 56px;
+  }
+
+  .fab-container,
+  .floating-actions {
+    bottom: 24px;
+    right: 24px;
+    gap: 12px;
+  }
+
+  /* Footer */
+  .footer-grid { 
+    grid-template-columns: 1fr 1fr; 
+    gap: 40px; 
+    text-align: left;
+  }
+
+  .footer-links {
+    align-items: flex-start;
+  }
+
+  .footer-bottom {
+    flex-direction: row;
+    text-align: left;
+  }
+}
+
+
+/* ===========================================================
+   --- 1024px+ (desktop) ---
+   =========================================================== */
+
+@media (min-width: 1024px) {
+  .hamburger {
+    display: none;
+  }
+
+  .nav-links {
+    display: flex;
+  }
+
+  .nav-cta {
+    display: flex;
+  }
+
+  .mobile-nav,
+  .nav-menu {
+    display: none;
+  }
+
+  #navbar .logo-name {
+    font-size: 20px;
+  }
+
+  #navbar .logo-tagline {
+    display: block;
+  }
+
+  .logo-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
+
+  .hero-content,
+  .hero-content-panel {
+    padding: 48px 56px;
+    max-width: 680px;
+  }
+
+  .hero-subtitle {
+    font-size: 18px;
+  }
+
+  .hero-orb-1 {
+    width: 600px;
+    height: 600px;
+    right: -100px;
+    top: -100px;
+  }
+
+  .hero-orb-2 {
+    width: 400px;
+    height: 400px;
+    left: -50px;
+    bottom: 100px;
+  }
+
+  .stat-number {
+    font-size: clamp(36px, 4vw, 48px);
+  }
+
+  .stat-label {
+    font-size: var(--font-small);
+  }
+
+  .service-image {
+    height: 210px;
+  }
+
+  /* Projects */
+  .bento-grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 260px;
+  }
+
+  .project-card.large,
+  .project-card.bento-large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  /* Services */
+  .services-grid { 
+    grid-template-columns: repeat(3, 1fr); 
+  }
+
+  /* About */
+  .about-grid { 
+    grid-template-columns: minmax(340px, 440px) 1fr; 
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  .about-left {
+    max-width: 460px;
+  }
+
+  /* Contact */
+  .contact-grid {
+    grid-template-columns: 1.1fr 1.2fr;
+    gap: var(--space-xl);
+  }
+
+  /* Footer */
+  .footer-grid { 
+    grid-template-columns: 1fr 1fr 1fr; 
+  }
+}
+
+
+/* ===========================================================
+   --- 1280px+ (desktop standard) ---
+   =========================================================== */
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+
+/* ===========================================================
+   --- 1440px+ (large desktop) ---
+   =========================================================== */
+
+@media (min-width: 1440px) {
+  .container { 
+    max-width: 1360px; 
+  }
+
+  .hero-title { 
+    font-size: 80px; 
+  }
+
+  .bento-grid { 
+    grid-auto-rows: 300px; 
+    gap: 24px;
+  }
+}
