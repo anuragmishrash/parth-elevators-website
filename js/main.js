@@ -164,13 +164,14 @@ function initStatsCounter() {
       const easedProgress = easeOutQuart(progress);
       const currentVal = Math.floor(easedProgress * target);
 
-      // Format with commas if > 999
-      element.textContent = currentVal.toLocaleString();
+      // Format with commas if > 999 except 4-digit calendar years
+      const formatNum = (val) => (target >= 1900 && target <= 2100) ? val.toString() : val.toLocaleString();
+      element.textContent = formatNum(currentVal);
 
       if (progress < 1) {
         window.requestAnimationFrame(step);
       } else {
-        element.textContent = target.toLocaleString();
+        element.textContent = formatNum(target);
       }
     };
 

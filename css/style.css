@@ -1319,17 +1319,23 @@ section[id] {
 .about-grid {
   display: grid;
   grid-template-columns: minmax(320px, 440px) 1fr;
+  grid-template-areas: "left content";
   gap: var(--space-xl);
   align-items: center;
 }
 
 /* FIX 1: Left column of about section overall */
 .about-left {
+  grid-area: left;
   display: flex;
   flex-direction: column;
   gap: 16px;
   width: 100%;
   max-width: 460px;
+}
+
+.about-content {
+  grid-area: content;
 }
 
 /* FIX 1: Complete about-image-frame rewrite */
